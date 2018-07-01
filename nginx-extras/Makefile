@@ -71,13 +71,13 @@ define Build/Configure
 			--with-cc="$(TARGET_CC)" \
 			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
 			--with-ld-opt="$(TARGET_LDFLAGS)" \
-			--prefix=/usr \
-			--conf-path=/etc/nginx/nginx.conf \
-			--http-log-path=/var/log/nginx/access.log \
-			--error-log-path=/var/log/nginx/error.log \
-			--lock-path=/var/lock/nginx.lock \
-			--pid-path=/var/run/nginx.pid \
-			--modules-path=/usr/lib/nginx \
+			--prefix=/opt \
+			--conf-path=/opt/etc/nginx/nginx.conf \
+			--http-log-path=/opt/var/log/nginx/access.log \
+			--error-log-path=/opt/var/log/nginx/error.log \
+			--lock-path=/opt/var/lock/nginx.lock \
+			--pid-path=/opt/var/run/nginx.pid \
+			--modules-path=/opt/lib/nginx \
 			--http-client-body-temp-path=/opt/var/lib/nginx/body \
 			--http-fastcgi-temp-path=/opt/var/lib/nginx/fastcgi \
 			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
@@ -127,36 +127,36 @@ define Build/Configure
 endef
 
 define Package/nginx-extras/conffiles
-/etc/nginx/
+/opt/etc/nginx/
 endef
 
 define Package/nginx-extras/install
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/nginx $(1)/usr/sbin
-	$(INSTALL_DIR) $(1)/usr/lib/nginx
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/nginx/ngx_*.so $(1)/usr/lib/nginx
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/opt/sbin
+	$(INSTALL_DIR) $(1)/opt/lib/nginx
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/nginx/ngx_*.so $(1)/opt/lib/nginx
 	$(INSTALL_DIR) $(1)/opt/html
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/*.html $(1)/opt/html
-	$(INSTALL_DIR) $(1)/etc/nginx/{sites-available,sites-enabled,snippets}
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/nginx/* $(1)/etc/nginx
-	$(RM) $(1)/etc/nginx/*.default $(1)/etc/nginx/nginx.conf
-	$(INSTALL_CONF) files/default $(1)/etc/nginx/sites-available
-	$(INSTALL_CONF) files/{fastcgi-php,snakeoil}.conf $(1)/etc/nginx/snippets
-	$(INSTALL_CONF) files/nginx.conf $(1)/etc/nginx
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) files/S80nginx $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/var/log/nginx $(1)/opt/share/www \
+	$(INSTALL_DIR) $(1)/opt/etc/nginx/{sites-available,sites-enabled,snippets}
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/nginx/* $(1)/opt/etc/nginx
+	$(RM) $(1)/opt/etc/nginx/*.default $(1)/opt/etc/nginx/nginx.conf
+	$(INSTALL_CONF) files/default $(1)/opt/etc/nginx/sites-available
+	$(INSTALL_CONF) files/{fastcgi-php,snakeoil}.conf $(1)/opt/etc/nginx/snippets
+	$(INSTALL_CONF) files/nginx.conf $(1)/opt/etc/nginx
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_BIN) files/S80nginx $(1)/opt/etc/init.d
+	$(INSTALL_DIR) $(1)/opt/var/log/nginx $(1)/opt/share/www \
 		$(1)/opt/var/lib/nginx/{body,proxy,fastcgi}
 endef
 
 define Package/nginx-extras/postinst
 #!/bin/sh
 
-if [ -e /etc/nginx/sites-enabled/default ]; then
-    echo '/etc/nginx/sites-enabled/default exists, not linking default one.'
+if [ -e /opt/etc/nginx/sites-enabled/default ]; then
+    echo '/opt/etc/nginx/sites-enabled/default exists, not linking default one.'
 else
-    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
-    echo '/etc/nginx/sites-enabled/default site enabled.'
+    ln -s /opt/etc/nginx/sites-available/default /opt/etc/nginx/sites-enabled
+    echo '/opt/etc/nginx/sites-enabled/default site enabled.'
 fi
 exit 0
 endef
