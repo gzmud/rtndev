@@ -145,8 +145,7 @@ define Package/nginx-extras/install
 	$(INSTALL_CONF) files/nginx.conf $(1)/etc/nginx
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) files/S80nginx $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/var/log/nginx $(1)/opt/share/www \
-		$(1)/var/lib/nginx/{body,proxy,fastcgi}
+	$(INSTALL_DIR) $(1)/opt/share/www
 endef
 
 define Package/nginx-extras/postinst
