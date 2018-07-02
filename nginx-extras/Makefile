@@ -73,16 +73,16 @@ define Build/Configure
 			--with-ld-opt="$(TARGET_LDFLAGS)" \
 			--prefix=/opt \
 			--conf-path=/etc/nginx/nginx.conf \
-			--http-log-path=/opt/var/log/nginx/access.log \
-			--error-log-path=/opt/var/log/nginx/error.log \
-			--lock-path=/opt/var/lock/nginx.lock \
-			--pid-path=/opt/var/run/nginx.pid \
+			--http-log-path=/var/log/nginx/access.log \
+			--error-log-path=/var/log/nginx/error.log \
+			--lock-path=/var/lock/nginx.lock \
+			--pid-path=/var/run/nginx.pid \
 			--modules-path=/usr/lib/nginx \
-			--http-client-body-temp-path=/opt/var/lib/nginx/body \
-			--http-fastcgi-temp-path=/opt/var/lib/nginx/fastcgi \
-			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
-			--http-scgi-temp-path=/opt/var/lib/nginx/scgi \
-			--http-uwsgi-temp-path=/opt/var/lib/nginx/uwsgi \
+			--http-client-body-temp-path=/var/lib/nginx/body \
+			--http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
+			--http-proxy-temp-path=/var/lib/nginx/proxy \
+			--http-scgi-temp-path=/var/lib/nginx/scgi \
+			--http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
 			--with-debug \
 			--with-pcre-jit \
 			--with-http_ssl_module \
@@ -145,8 +145,8 @@ define Package/nginx-extras/install
 	$(INSTALL_CONF) files/nginx.conf $(1)/etc/nginx
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) files/S80nginx $(1)/etc/init.d
-	$(INSTALL_DIR) $(1)/opt/var/log/nginx $(1)/opt/share/www \
-		$(1)/opt/var/lib/nginx/{body,proxy,fastcgi}
+	$(INSTALL_DIR) $(1)/var/log/nginx $(1)/opt/share/www \
+		$(1)/var/lib/nginx/{body,proxy,fastcgi}
 endef
 
 define Package/nginx-extras/postinst
