@@ -131,8 +131,8 @@ define Package/nginx-extras/conffiles
 endef
 
 define Package/nginx-extras/install
-	$(INSTALL_DIR) $(1)/opt/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/opt/sbin
+	$(INSTALL_DIR) $(1)/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/opt/lib/nginx
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/nginx/ngx_*.so $(1)/opt/lib/nginx
 	$(INSTALL_DIR) $(1)/opt/html
