@@ -135,8 +135,8 @@ define Package/nginx-extras/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/usr/lib/nginx
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/nginx/ngx_*.so $(1)/usr/lib/nginx
-	$(INSTALL_DIR) $(1)/opt/html
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/*.html $(1)/opt/html
+	$(INSTALL_DIR) $(1)/usr/html
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/html/*.html $(1)/usr/html
 	$(INSTALL_DIR) $(1)/opt/etc/nginx/{sites-available,sites-enabled,snippets}
 	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/nginx/* $(1)/opt/etc/nginx
 	$(RM) $(1)/opt/etc/nginx/*.default $(1)/opt/etc/nginx/nginx.conf
