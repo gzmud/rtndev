@@ -77,7 +77,7 @@ define Build/Configure
 			--error-log-path=/opt/var/log/nginx/error.log \
 			--lock-path=/opt/var/lock/nginx.lock \
 			--pid-path=/opt/var/run/nginx.pid \
-			--modules-path=/opt/lib/nginx \
+			--modules-path=/usr/lib/nginx \
 			--http-client-body-temp-path=/opt/var/lib/nginx/body \
 			--http-fastcgi-temp-path=/opt/var/lib/nginx/fastcgi \
 			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
@@ -133,8 +133,8 @@ endef
 define Package/nginx-extras/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/usr/sbin
-	$(INSTALL_DIR) $(1)/opt/lib/nginx
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/nginx/ngx_*.so $(1)/opt/lib/nginx
+	$(INSTALL_DIR) $(1)/usr/lib/nginx
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/nginx/ngx_*.so $(1)/usr/lib/nginx
 	$(INSTALL_DIR) $(1)/opt/html
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/*.html $(1)/opt/html
 	$(INSTALL_DIR) $(1)/opt/etc/nginx/{sites-available,sites-enabled,snippets}
