@@ -71,7 +71,7 @@ define Build/Configure
 			--with-cc="$(TARGET_CC)" \
 			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
 			--with-ld-opt="$(TARGET_LDFLAGS)" \
-			--prefix=/opt \
+			--prefix=/usr \
 			--conf-path=/etc/nginx/nginx.conf \
 			--http-log-path=/var/log/nginx/access.log \
 			--error-log-path=/var/log/nginx/error.log \
@@ -132,7 +132,7 @@ endef
 
 define Package/nginx-extras/install
 	$(INSTALL_DIR) $(1)/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/nginx $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/usr/lib/nginx
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/nginx/ngx_*.so $(1)/usr/lib/nginx
 	$(INSTALL_DIR) $(1)/usr/html
