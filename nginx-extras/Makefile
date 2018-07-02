@@ -72,7 +72,7 @@ define Build/Configure
 			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
 			--with-ld-opt="$(TARGET_LDFLAGS)" \
 			--prefix=/opt \
-			--conf-path=/opt/etc/nginx/nginx.conf \
+			--conf-path=/etc/nginx/nginx.conf \
 			--http-log-path=/opt/var/log/nginx/access.log \
 			--error-log-path=/opt/var/log/nginx/error.log \
 			--lock-path=/opt/var/lock/nginx.lock \
@@ -127,7 +127,7 @@ define Build/Configure
 endef
 
 define Package/nginx-extras/conffiles
-/opt/etc/nginx/
+/etc/nginx/
 endef
 
 define Package/nginx-extras/install
@@ -137,14 +137,14 @@ define Package/nginx-extras/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/nginx/ngx_*.so $(1)/usr/lib/nginx
 	$(INSTALL_DIR) $(1)/usr/html
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/html/*.html $(1)/usr/html
-	$(INSTALL_DIR) $(1)/opt/etc/nginx/{sites-available,sites-enabled,snippets}
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/opt/etc/nginx/* $(1)/opt/etc/nginx
-	$(RM) $(1)/opt/etc/nginx/*.default $(1)/opt/etc/nginx/nginx.conf
-	$(INSTALL_CONF) files/default $(1)/opt/etc/nginx/sites-available
-	$(INSTALL_CONF) files/{fastcgi-php,snakeoil}.conf $(1)/opt/etc/nginx/snippets
-	$(INSTALL_CONF) files/nginx.conf $(1)/opt/etc/nginx
-	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_BIN) files/S80nginx $(1)/opt/etc/init.d
+	$(INSTALL_DIR) $(1)/etc/nginx/{sites-available,sites-enabled,snippets}
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/nginx/* $(1)/etc/nginx
+	$(RM) $(1)/etc/nginx/*.default $(1)/etc/nginx/nginx.conf
+	$(INSTALL_CONF) files/default $(1)/etc/nginx/sites-available
+	$(INSTALL_CONF) files/{fastcgi-php,snakeoil}.conf $(1)/etc/nginx/snippets
+	$(INSTALL_CONF) files/nginx.conf $(1)/etc/nginx
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/S80nginx $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/var/log/nginx $(1)/opt/share/www \
 		$(1)/opt/var/lib/nginx/{body,proxy,fastcgi}
 endef
@@ -152,11 +152,11 @@ endef
 define Package/nginx-extras/postinst
 #!/bin/sh
 
-if [ -e /opt/etc/nginx/sites-enabled/default ]; then
-    echo '/opt/etc/nginx/sites-enabled/default exists, not linking default one.'
+if [ -e /etc/nginx/sites-enabled/default ]; then
+    echo '/etc/nginx/sites-enabled/default exists, not linking default one.'
 else
-    ln -s /opt/etc/nginx/sites-available/default /opt/etc/nginx/sites-enabled
-    echo '/opt/etc/nginx/sites-enabled/default site enabled.'
+    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
+    echo '/etc/nginx/sites-enabled/default site enabled.'
 fi
 exit 0
 endef
