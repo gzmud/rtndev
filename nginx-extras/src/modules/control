@@ -72,3 +72,8 @@ Module: http-brotli
 Homepage: https://github.com/eustas/ngx_brotli
 Files-Excluded: test
 Version: 0.1.2
+
+Module: http-ts
+Homepage: https://github.com/arut/nginx-ts-module
+Files-Excluded: test
+Version: 0.1.1
