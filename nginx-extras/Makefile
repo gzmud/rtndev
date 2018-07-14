@@ -125,6 +125,7 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-subs-filter \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-brotli \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-ts \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/naxsi/naxsi_src \
 	)
 endef
 
@@ -148,6 +149,9 @@ define Package/nginx-extras/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) files/S80nginx $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/share/www
+	$(INSTALL_DIR) $(1)/etc/nginx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/modules/naxsi/nginx-naxsi/naxsi_config/naxsi_core.rules $(1)/etc/nginx
+	chmod 0640 $(1)/etc/nginx/naxsi_core.rules
 endef
 
 define Package/nginx-extras/postinst

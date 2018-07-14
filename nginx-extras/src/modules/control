@@ -77,3 +77,8 @@ Module: http-ts
 Homepage: https://github.com/arut/nginx-ts-module
 Files-Excluded: test
 Version: 0.1.1
+
+Module: naxsi
+Homepage: https://github.com/openresty/lua-nginx-module
+Files-Excluded: test
+Version: 0.56
