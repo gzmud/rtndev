@@ -123,6 +123,7 @@ define Build/Configure
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-uploadprogress \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-upstream-fair \
 			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-subs-filter \
+			--add-dynamic-module=$(PKG_BUILD_DIR)/modules/http-brotli \
 	)
 endef
 

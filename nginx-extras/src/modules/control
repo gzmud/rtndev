@@ -68,3 +68,7 @@ Homepage: https://github.com/arut/nginx-rtmp-module
 Files-Excluded: test
 Version: 1.2.1
 
+Module: http-brotli
+Homepage: https://github.com/eustas/ngx_brotli
+Files-Excluded: test
+Version: 0.1.2
