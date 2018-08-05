@@ -54,6 +54,37 @@ define Build/Patch
 	)
 endef
 
+define Package/nginx-extras-mod-luci/default
+  TITLE:=Nginx-extras on LuCI
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=Support file for Nginx
+  URL:=http://nginx.org/
+  DEPENDS:=+uwsgi-cgi +uwsgi-cgi-luci-support
+	CONFLICTS:=nginx-mod-luci
+endef
+
+define Package/nginx-extras-mod-luci
+  $(Package/nginx-mod-luci/default)
+  DEPENDS += +nginx-extras
+	CONFLICTS:=nginx-mod-luci
+endef
+
+define Package/nginx-extras-mod-luci/description
+ Support file for LuCI in nginx. Include custom nginx configuration, autostart script for uwsgi.
+endef
+
+define Package/nginx-extras-mod-luci-ssl
+  $(Package/nginx-extras-mod-luci/default)
+  TITLE += with HTTPS support
+  DEPENDS += +nginx-extras
+	CONFLICTS:=nginx-mod-luci-ssl
+endef
+
+Package/nginx-mod-luci-ssl/description = $(define Package/nginx-mod-luci/description) \
+  This also include redirect from http to https and cert autogeneration.
+
 TARGET_CFLAGS += \
 	-I$(STAGING_DIR)/usr/include/libxml2 -Wno-error=parentheses
 
@@ -131,6 +162,22 @@ endef
 
 define Package/nginx-extras/conffiles
 /etc/nginx/
+endef
+
+define Package/nginx-extras-mod-luci/install
+	$(INSTALL_DIR) $(1)/etc/nginx
+	$(INSTALL_BIN) ./files-luci-support/luci_uwsgi.conf $(1)/etc/nginx/luci_uwsgi.conf
+	$(INSTALL_BIN) ./files-luci-support/luci_nginx.conf $(1)/etc/nginx/luci_nginx.conf
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_BIN) ./files-luci-support/60_nginx-luci-support $(1)/etc/uci-defaults/60_nginx-luci-support
+endef
+
+define Package/nginx-extras-mod-luci-ssl/install
+	$(Package/nginx-mod-luci/install)
+	$(INSTALL_DIR) $(1)/etc/nginx
+	$(INSTALL_BIN) ./files-luci-support/luci_nginx_ssl.conf $(1)/etc/nginx/luci_nginx_ssl.conf
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_BIN) ./files-luci-support/70_nginx-luci-support-ssl $(1)/etc/uci-defaults/70_nginx-luci-support-ssl
 endef
 
 define Package/nginx-extras/install
